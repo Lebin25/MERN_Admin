@@ -3,7 +3,7 @@ import {
    MenuFoldOutlined,
    MenuUnfoldOutlined,
 } from '@ant-design/icons';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { AiOutlineDashboard, AiOutlineLaptop, AiOutlineForm } from 'react-icons/ai'
 import { BiCategory, BiColorFill } from 'react-icons/bi'
 import { FiPlusCircle } from 'react-icons/fi'
@@ -47,7 +47,7 @@ const MainLayout = () => {
                      label: 'Dashboard',
                   },
                   {
-                     key: 'customer',
+                     key: 'customers',
                      icon: <PiUserList className='fs-4' />,
                      label: 'Customers',
                   },
@@ -62,7 +62,7 @@ const MainLayout = () => {
                            label: 'Add Product',
                         },
                         {
-                           key: 'product-list',
+                           key: 'list-product',
                            icon: <CiViewList className='fs-4' />,
                            label: 'Product List',
                         },
@@ -99,12 +99,12 @@ const MainLayout = () => {
                      ]
                   },
                   {
-                     key: 'order',
+                     key: 'orders',
                      icon: <IoBagCheckOutline className='fs-4' />,
                      label: 'Orders',
                   },
                   {
-                     key: 'blog',
+                     key: 'blogs',
                      icon: <PiNewspaperClipping className='fs-4' />,
                      label: 'Blogs',
                      children: [
@@ -114,7 +114,7 @@ const MainLayout = () => {
                            label: 'Add Blog',
                         },
                         {
-                           key: 'blog-list',
+                           key: 'list-blog',
                            icon: <CiViewList className='fs-4' />,
                            label: 'Blog List',
                         },
@@ -124,14 +124,14 @@ const MainLayout = () => {
                            label: 'Add Blog Category',
                         },
                         {
-                           key: 'blog-category-list',
+                           key: 'list-blog-category',
                            icon: <CiViewList className='fs-4' />,
                            label: 'Blog Category List',
                         },
                      ]
                   },
                   {
-                     key: 'enquiry',
+                     key: 'enquiries',
                      icon: <AiOutlineForm className='fs-4' />,
                      label: 'Enquiries',
                   },
@@ -161,13 +161,21 @@ const MainLayout = () => {
                      <IoIosNotifications className='fs-4' />
                      <span className='badge bg-warning rounded-circle p-1 position-absolute'>3</span>
                   </div>
-                  <div className='d-flex gap-3 align-items-center'>
+                  <div className='d-flex gap-3 align-items-center dropdown' >
                      <div>
                         <img src="https://icons.iconarchive.com/icons/custom-icon-design/pretty-office-2/128/man-icon.png" width="32" height="32" alt="" />
                      </div>
-                     <div>
+                     <div role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                         <h5 className='mb-0'>Bin Nguyen</h5>
                         <p className='mb-0'>lebin642@gmail.com</p>
+                     </div>
+                     <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li>
+                           <Link className="dropdown-item py-1 mb-1" style={{ "height": "auto", "lineHeight": "20px" }} to="/">View Profile</Link>
+                        </li>
+                        <li>
+                           <Link className="dropdown-item py-1 mb-1" style={{ "height": "auto", "lineHeight": "20px" }} to="/">Signout</Link>
+                        </li>
                      </div>
                   </div>
                </div>
