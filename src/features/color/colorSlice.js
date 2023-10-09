@@ -1,38 +1,39 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import productService from './productService';
+import colorService from './colorService';
 
-export const getProducts = createAsyncThunk('product/get-products', async (thunkAPI) => {
+
+export const getColors = createAsyncThunk('color/get-colors', async (thunkAPI) => {
    try {
-      return await productService.getProducts();
+      return await colorService.getColors();
    } catch (error) {
       return thunkAPI.rejectWithValue(error)
    }
 })
 
 const initialState = {
-   products: [],
+   colors: [],
    isError: false,
    isLoading: false,
    isSuccess: false,
    message: "",
 }
 
-export const productSlice = createSlice({
-   name: "products",
+export const colorSlice = createSlice({
+   name: "colors",
    initialState,
    reducer: {},
    extraReducers: (builder) => {
       builder
-         .addCase(getProducts.pending, (state) => {
+         .addCase(getColors.pending, (state) => {
             state.isLoading = true;
          })
-         .addCase(getProducts.fulfilled, (state, action) => {
+         .addCase(getColors.fulfilled, (state, action) => {
             state.isLoading = false;
             state.isError = false;
             state.isSuccess = true;
-            state.products = action.payload;
+            state.colors = action.payload;
          })
-         .addCase(getProducts.rejected, (state, action) => {
+         .addCase(getColors.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
             state.isSuccess = false;
@@ -41,4 +42,4 @@ export const productSlice = createSlice({
    }
 })
 
-export default productSlice.reducer
+export default colorSlice.reducer
