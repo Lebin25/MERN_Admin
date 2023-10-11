@@ -2,13 +2,13 @@ import React, { useEffect } from 'react'
 import CustomInput from '../components/CustomInput'
 import { Link, useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
+import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../features/auth/authSlice';
 
-let schema = Yup.object().shape({
-   email: Yup.string().email('Email is not valid').required('Email is required'),
-   password: Yup.string().required('Password is required'),
+let schema = yup.object().shape({
+   email: yup.string().email('Email is not valid').required('Email is required'),
+   password: yup.string().required('Password is required'),
 });
 
 const Login = () => {
@@ -57,7 +57,8 @@ const Login = () => {
                   label='Email Address'
                   id='email'
                   val={formik.values.email}
-                  onCh={formik.handleChange('email')}
+                  onChng={formik.handleChange('email')}
+                  onBlr={formik.handleBlur('email')}
                />
                <div className="error">
                   {formik.touched.email ? (
@@ -70,7 +71,8 @@ const Login = () => {
                   label='Password'
                   id='pass'
                   val={formik.values.password}
-                  onCh={formik.handleChange('password')}
+                  onChng={formik.handleChange('password')}
+                  onBlr={formik.handleBlur('password')}
                />
                <div className="error">
                   {formik.touched.password ? (
