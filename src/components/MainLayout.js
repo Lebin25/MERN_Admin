@@ -4,6 +4,8 @@ import {
    MenuUnfoldOutlined,
 } from '@ant-design/icons';
 import { Link, Outlet } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { AiOutlineDashboard, AiOutlineLaptop, AiOutlineForm } from 'react-icons/ai'
 import { BiCategory, BiColorFill } from 'react-icons/bi'
 import { FiPlusCircle } from 'react-icons/fi'
@@ -188,6 +190,17 @@ const MainLayout = () => {
                   background: colorBgContainer,
                }}
             >
+               <ToastContainer
+                  position="top-right"
+                  autoClose={250}
+                  hideProgressBar={false}
+                  newestOnTop={true}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  theme="light"
+               />
                <Outlet />
             </Content>
          </Layout>

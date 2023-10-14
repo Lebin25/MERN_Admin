@@ -19,7 +19,6 @@ export const createProduct = createAsyncThunk('product/create-product', async (p
 
 const initialState = {
    products: [],
-   createdProduct: '',
    isError: false,
    isLoading: false,
    isSuccess: false,
