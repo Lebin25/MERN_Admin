@@ -8,6 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AiOutlineDashboard, AiOutlineLaptop, AiOutlineForm } from 'react-icons/ai'
 import { BiCategory, BiColorFill } from 'react-icons/bi'
+import { RiCouponLine } from 'react-icons/ri'
 import { FiPlusCircle } from 'react-icons/fi'
 import { CiViewList } from 'react-icons/ci'
 import { PiUserList, PiNewspaperClipping } from 'react-icons/pi'
@@ -104,6 +105,23 @@ const MainLayout = () => {
                      key: 'orders',
                      icon: <IoBagCheckOutline className='fs-4' />,
                      label: 'Orders',
+                  },
+                  {
+                     key: 'marketing',
+                     icon: <RiCouponLine className='fs-4' />,
+                     label: 'Marketing',
+                     children: [
+                        {
+                           key: 'coupon',
+                           icon: <FiPlusCircle className='fs-4' />,
+                           label: 'Add Coupon',
+                        },
+                        {
+                           key: 'list-coupon',
+                           icon: <CiViewList className='fs-4' />,
+                           label: 'Coupon List',
+                        },
+                     ]
                   },
                   {
                      key: 'blogs',
