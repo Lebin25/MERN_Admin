@@ -13,7 +13,7 @@ import { getBrands } from '../features/brand/brandSlice';
 import { getCategories } from '../features/pcategory/pcategorySlice';
 import { getColors } from '../features/color/colorSlice';
 import { delImg, uploadImg } from '../features/upload/uploadSlice';
-import { createProduct } from '../features/product/productSlice';
+import { createProduct, resetState } from '../features/product/productSlice';
 
 let schema = yup.object().shape({
    title: yup.string().required('Title is required'),
@@ -93,7 +93,7 @@ const Addproduct = () => {
          formik.resetForm();
          setColor(null);
          setTimeout(() => {
-            navigate('/admin/list-product')
+            dispatch(resetState())
          }, 3000)
       },
    });

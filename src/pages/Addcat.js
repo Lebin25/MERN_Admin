@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import { createCategory } from '../features/pcategory/pcategorySlice';
+import { createCategory, resetState } from '../features/pcategory/pcategorySlice';
 
 let schema = yup.object().shape({
    title: yup.string().required('Category Name is required'),
@@ -35,7 +35,7 @@ const Addcat = () => {
          dispatch(createCategory(values));
          formik.resetForm();
          setTimeout(() => {
-            navigate('/admin/list-category')
+            dispatch(resetState())
          }, 3000)
       },
    });

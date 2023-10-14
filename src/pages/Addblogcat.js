@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import { createBlogCategory } from '../features/bcategory/bcategorySlice';
+import { createBlogCategory, resetState } from '../features/bcategory/bcategorySlice';
 
 let schema = yup.object().shape({
    title: yup.string().required('Blog Category is required'),
@@ -35,7 +35,7 @@ const Addblogcat = () => {
          dispatch(createBlogCategory(values));
          formik.resetForm();
          setTimeout(() => {
-            navigate('/admin/list-blog-category')
+            dispatch(resetState())
          }, 3000)
       },
    });
