@@ -37,6 +37,7 @@ function App() {
                <Route path='list-blog' element={<Bloglist />} />
                <Route path='list-blog-category' element={<Blogcatlist />} />
                <Route path='blog-category' element={<Addblogcat />} />
+               <Route path='blog-category/:id' element={<Addblogcat />} />
                <Route path='orders' element={<Orders />} />
                <Route path='customers' element={<Customers />} />
                <Route path='color' element={<Addcolor />} />

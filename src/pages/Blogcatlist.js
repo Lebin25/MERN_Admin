@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Table } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategories } from '../features/bcategory/bcategorySlice';
+import { deleteABlogCat, getCategories, resetState } from '../features/bcategory/bcategorySlice';
 import { Link } from 'react-router-dom'
 import { BiEdit } from 'react-icons/bi'
 import { AiFillDelete } from 'react-icons/ai'
+import CustomModal from '../components/CustomModal';
 
 const columns = [
    {
@@ -23,8 +24,20 @@ const columns = [
 ];
 
 const Blogcatlist = () => {
+   const [open, setOpen] = useState(false);
+   const [blogCatId, setBlogCatId] = useState('');
+   const showModal = (e) => {
+      setOpen(true);
+      setBlogCatId(e)
+   };
+
+   const hideModal = () => {
+      setOpen(false);
+   };
+
    const dispatch = useDispatch();
    useEffect(() => {
+      dispatch(resetState())
       dispatch(getCategories())
    }, [])
 
@@ -36,15 +49,22 @@ const Blogcatlist = () => {
          name: bCatState[i].title,
          action: (
             <>
-               <Link to='/' className='fs-3 text-danger'>
+               <Link to={`/admin/blog-category/${bCatState[i]._id}`} className='fs-3 text-danger'>
                   <BiEdit />
                </Link>
-               <Link to='/' className='ms-3 fs-3 text-danger'>
+               <button to='/' className='ms-3 fs-3 text-danger bg-transparent border-0' onClick={() => showModal(bCatState[i]._id)}>
                   <AiFillDelete />
-               </Link>
+               </button>
             </>
          )
       });
+   }
+   const deleteBlogCategory = (e) => {
+      dispatch(deleteABlogCat(e))
+      setOpen(false)
+      setTimeout(() => {
+         dispatch(getCategories())
+      }, 100)
    }
    return (
       <div>
@@ -52,6 +72,12 @@ const Blogcatlist = () => {
          <div>
             <Table columns={columns} dataSource={data1} />
          </div>
+         <CustomModal
+            hideModal={hideModal}
+            open={open}
+            performAction={() => { deleteBlogCategory(blogCatId) }}
+            title='Are you sure to delete this brand?'
+         />
       </div>
    )
 }
