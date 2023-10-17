@@ -76,7 +76,7 @@ const Blogcatlist = () => {
             hideModal={hideModal}
             open={open}
             performAction={() => { deleteBlogCategory(blogCatId) }}
-            title='Are you sure to delete this brand?'
+            title='Are you sure to delete this blog category?'
          />
       </div>
    )
