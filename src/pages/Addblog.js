@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import CustomInput from '../components/CustomInput'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -19,6 +19,10 @@ let schema = yup.object().shape({
 });
 
 const Addblog = () => {
+
+   const effectRan = useRef(false)
+   const formikRef = useRef();
+
    const dispatch = useDispatch();
    const navigate = useNavigate();
    const location = useLocation();
@@ -66,16 +70,38 @@ const Addblog = () => {
    }, [isSuccess, isError, isLoading]);
 
    const img = [];
+
+   useEffect(() => {
+      if (effectRan.current === true) {
+         blogImages?.forEach((i) => {
+            img.push({
+               public_id: i.public_id,
+               url: i.url,
+            });
+         })
+         formik.values.images = img;
+      }
+      return () => {
+         effectRan.current = true
+      }
+      return () => { }
+   }, [blogImages]);
+
+
    imgState.forEach((i) => {
       img.push({
          public_id: i.public_id,
          url: i.url,
       });
    });
-   console.log(img);
    useEffect(() => {
-      formik.values.images = img;
-   }, [blogImages, imgState]);
+      if (effectRan.current === true) {
+         formik.values.images = img;
+      }
+      return () => {
+         effectRan.current = true
+      }
+   }, [imgState]);
 
    const formik = useFormik({
       enableReinitialize: true,
@@ -89,9 +115,11 @@ const Addblog = () => {
       onSubmit: (values) => {
          if (getBlogId !== undefined) {
             const data = { id: getBlogId, blogData: values };
+            console.log(data);
             dispatch(updateABlog(data));
             dispatch(resetState());
          } else {
+            console.log(values);
             dispatch(createBlogs(values));
             formik.resetForm();
             setTimeout(() => {
@@ -154,7 +182,9 @@ const Addblog = () => {
                </div>
                <div className="bg-white border-1 p-5 text-center mt-3">
                   <Dropzone
-                     onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}
+                     onDrop={(acceptedFiles) => {
+                        dispatch(uploadImg(acceptedFiles))
+                     }}
                   >
                      {({ getRootProps, getInputProps }) => (
                         <section>
