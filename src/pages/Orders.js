@@ -44,18 +44,16 @@ const Orders = () => {
    }, [])
 
    const orderState = useSelector((state) => state.auth.orders)
+
    const data1 = [];
    for (let i = 0; i < orderState.length; i++) {
       data1.push({
          key: i + 1,
          name: orderState[i].orderby.firstname + " " + orderState[i].orderby.lastname,
-         products: orderState[i].products.map((i, j) => {
-            return (
-               <ul key={j}>
-                  <li>{i.product.title}</li>
-               </ul>
-            )
-         }),
+         products:
+            <Link to={`/admin/orders/${orderState[i]._id}`}>
+               View Orders
+            </Link>,
          amount: orderState[i].paymentIntent.amount,
          date: new Date(orderState[i].createdAt).toLocaleString(),
          status: orderState[i].orderStatus,
