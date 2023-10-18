@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Table } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getEnquiries } from '../features/enquiry/enquirySlice';
+import { deleteAnEnquiry, getEnquiries, resetState, updateAnEnquiry } from '../features/enquiry/enquirySlice';
 import { Link } from 'react-router-dom'
-import { AiFillDelete } from 'react-icons/ai'
+import { AiFillDelete, AiOutlineEye } from 'react-icons/ai'
+import CustomModal from '../components/CustomModal';
 
 const columns = [
    {
@@ -33,8 +34,21 @@ const columns = [
 ];
 
 const Enquiries = () => {
+   const [open, setOpen] = useState(false);
+   const [enqId, setEnqId] = useState('');
+   const showModal = (e) => {
+      setOpen(true);
+      setEnqId(e)
+   };
+
+   const hideModal = () => {
+      setOpen(false);
+   };
+
    const dispatch = useDispatch();
+
    useEffect(() => {
+      dispatch(resetState())
       dispatch(getEnquiries())
    }, [])
 
@@ -48,19 +62,43 @@ const Enquiries = () => {
          mobile: enquiryState[i].mobile,
          status: (
             <>
-               <select name="" className='form-control form-select' id="">
-                  <option value="">Set Status</option>
+               <select
+                  name=""
+                  defaultValue={enquiryState[i].status ? enquiryState[i].status : "Submitted"}
+                  className="form-control form-select"
+                  id=""
+                  onChange={(e) => setEnquiryStatus(e.target.value, enquiryState[i]._id)}
+               >
+                  <option value="Submitted">Submitted</option>
+                  <option value="Contacted">Contacted</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Resolved">Resolved</option>
                </select>
             </>
          ),
          action: (
             <>
-               <Link to='/' className='ms-3 fs-3 text-danger'>
-                  <AiFillDelete />
+               <Link to={`/admin/enquiries/${enquiryState[i]._id}`} className='ms-3 fs-3 text-danger'>
+                  <AiOutlineEye />
                </Link>
+               <button to='/' className='ms-3 fs-3 text-danger bg-transparent border-0' onClick={() => showModal(enquiryState[i]._id)}>
+                  <AiFillDelete />
+               </button>
             </>
          )
       });
+   }
+   const setEnquiryStatus = (e, i) => {
+      console.log(e, i);
+      const data = { id: i, enqData: e };
+      dispatch(updateAnEnquiry(data));
+   };
+   const deleteEnq = (e) => {
+      dispatch(deleteAnEnquiry(e))
+      setOpen(false)
+      setTimeout(() => {
+         dispatch(getEnquiries())
+      }, 100)
    }
    return (
       <div>
@@ -68,6 +106,12 @@ const Enquiries = () => {
          <div>
             <Table columns={columns} dataSource={data1} />
          </div>
+         <CustomModal
+            hideModal={hideModal}
+            open={open}
+            performAction={() => { deleteEnq(enqId) }}
+            title='Are you sure to delete this enquiry?'
+         />
       </div>
    )
 }

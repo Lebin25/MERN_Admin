@@ -22,6 +22,7 @@ import Addbrand from './pages/Addbrand';
 import Addproduct from './pages/Addproduct';
 import Addcoupon from './pages/Addcoupon';
 import Couponlist from './pages/Couponlist';
+import Viewenq from './pages/Viewenq';
 
 function App() {
    return (
@@ -33,6 +34,7 @@ function App() {
             <Route path='/admin' element={<MainLayout />}>
                <Route index element={<Dashboard />} />
                <Route path='enquiries' element={<Enquiries />} />
+               <Route path='enquiries/:id' element={<Viewenq />} />
                <Route path='blog' element={<Addblog />} />
                <Route path='blog/:id' element={<Addblog />} />
                <Route path='list-blog' element={<Bloglist />} />
