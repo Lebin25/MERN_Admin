@@ -98,7 +98,7 @@ const Enquiries = () => {
       setOpen(false)
       setTimeout(() => {
          dispatch(getEnquiries())
-      }, 100)
+      }, 500)
    }
    return (
       <div>

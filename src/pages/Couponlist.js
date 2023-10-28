@@ -83,7 +83,7 @@ const Couponlist = () => {
       setTimeout(() => {
 
          dispatch(getAllCoupon());
-      }, 100);
+      }, 500);
    };
    return (
       <div>

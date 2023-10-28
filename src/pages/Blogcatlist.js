@@ -64,7 +64,7 @@ const Blogcatlist = () => {
       setOpen(false)
       setTimeout(() => {
          dispatch(getCategories())
-      }, 100)
+      }, 500)
    }
    return (
       <div>

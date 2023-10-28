@@ -27,7 +27,7 @@ const Viewenq = () => {
       dispatch(resetState());
       setTimeout(() => {
          dispatch(getAnEnquiry(getEnqId));
-      }, 100);
+      }, 500);
    };
 
    return (

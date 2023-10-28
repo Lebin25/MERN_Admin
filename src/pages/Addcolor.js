@@ -56,7 +56,7 @@ const Addcolor = () => {
             formik.resetForm();
             setTimeout(() => {
                dispatch(resetState())
-            }, 300)
+            }, 500)
          }
       },
    });

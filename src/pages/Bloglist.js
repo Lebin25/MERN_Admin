@@ -69,7 +69,7 @@ const Bloglist = () => {
       setOpen(false)
       setTimeout(() => {
          dispatch(getBlogs())
-      }, 100)
+      }, 500)
    }
    return (
       <div>

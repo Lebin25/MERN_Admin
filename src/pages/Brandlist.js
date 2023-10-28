@@ -63,7 +63,7 @@ const Brandlist = () => {
       setOpen(false)
       setTimeout(() => {
          dispatch(getBrands())
-      }, 100)
+      }, 500)
    }
    return (
       <div>

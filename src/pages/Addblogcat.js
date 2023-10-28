@@ -57,7 +57,7 @@ const Addblogcat = () => {
             formik.resetForm();
             setTimeout(() => {
                dispatch(resetState())
-            }, 300)
+            }, 500)
          }
       },
    });
