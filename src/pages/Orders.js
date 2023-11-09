@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Table } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOrders } from '../features/auth/authSlice';
+import { getOrders, updateAnOrder } from '../features/auth/authSlice';
 import { Link } from 'react-router-dom'
 import { BiEdit } from 'react-icons/bi'
 import { AiFillDelete } from 'react-icons/ai'
@@ -28,10 +28,6 @@ const columns = [
       dataIndex: 'date',
    },
    {
-      title: 'Status',
-      dataIndex: 'status',
-   },
-   {
       title: 'Action',
       dataIndex: 'action',
    },
@@ -43,32 +39,37 @@ const Orders = () => {
       dispatch(getOrders())
    }, [])
 
-   const orderState = useSelector((state) => state.auth.orders)
+   const orderState = useSelector((state) => state.auth.orders.orders)
 
    const data1 = [];
-   for (let i = 0; i < orderState.length; i++) {
+   for (let i = 0; i < orderState?.length; i++) {
       data1.push({
          key: i + 1,
-         name: orderState[i].orderby.firstname + " " + orderState[i].orderby.lastname,
+         name: orderState[i]?.user?.firstname + " " + orderState[i]?.user?.lastname,
          products:
-            <Link to={`/admin/orders/${orderState[i]._id}`}>
+            <Link to={`/admin/orders/${orderState[i]?._id}`}>
                View Orders
             </Link>,
-         amount: orderState[i].paymentIntent.amount,
-         date: new Date(orderState[i].createdAt).toLocaleString(),
-         status: orderState[i].orderStatus,
+         amount: orderState[i]?.totalPrice,
+         date: new Date(orderState[i]?.createdAt).toLocaleString(),
          action: (
             <>
-               <Link to='/' className='fs-3 text-danger'>
-                  <BiEdit />
-               </Link>
-               <Link to='/' className='ms-3 fs-3 text-danger'>
-                  <AiFillDelete />
-               </Link>
+               <select name="" defaultValue={orderState[i]?.orderStatus} onChange={(e) => updateOrderStatus(orderState[i]?._id, e.target.value)} className='form-control form-select' id="">
+                  <option value="Ordered" disabled selected>Ordered</option>
+                  <option value="Processed">Processed</option>
+                  <option value="Shipped">Shipped</option>
+                  <option value="Out For Delivery">Out For Delivery</option>
+                  <option value="Delivered">Delivered</option>
+               </select>
             </>
          )
       });
    }
+
+   const updateOrderStatus = (a, b) => {
+      dispatch(updateAnOrder({ id: a, status: b }))
+   }
+
    return (
       <div>
          <h3 className="mb-4 title">Orders</h3>

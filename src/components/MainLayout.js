@@ -15,6 +15,7 @@ import { PiUserList, PiNewspaperClipping } from 'react-icons/pi'
 import { SiBrandfolder } from 'react-icons/si'
 import { IoBagCheckOutline } from 'react-icons/io5'
 import { IoIosNotifications } from 'react-icons/io'
+import { MdOutlineLogout } from 'react-icons/md'
 import { Layout, Menu, Button, theme } from 'antd';
 import { useNavigate } from 'react-router-dom';
 const { Header, Sider, Content } = Layout;
@@ -38,7 +39,9 @@ const MainLayout = () => {
                mode="inline"
                defaultSelectedKeys={['']}
                onClick={({ key }) => {
-                  if (key == "signout") {
+                  if (key === "signout") {
+                     localStorage.clear()
+                     window.location.reload()
                   } else {
                      navigate(key);
                   }
@@ -154,6 +157,11 @@ const MainLayout = () => {
                      key: 'enquiries',
                      icon: <AiOutlineForm className='fs-4' />,
                      label: 'Enquiries',
+                  },
+                  {
+                     key: 'signout',
+                     icon: <MdOutlineLogout className='fs-4' />,
+                     label: 'Sign Out',
                   },
                ]}
             />

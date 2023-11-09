@@ -79,10 +79,7 @@ const Login = () => {
                      <div>{formik.errors.password}</div>
                   ) : null}
                </div>
-               <div className='mb-3 text-end'>
-                  <Link to='forgot-password' className=''>Forgot Password?</Link>
-               </div>
-               <button className='border-0 px-3 py-2 text-white fw-bold w-100 text-center text-decoration-none fs-5' style={{ background: "#ffd333" }} type='submit'>Login</button>
+               <button className='border-0 mt-3 px-3 py-2 text-white fw-bold w-100 text-center text-decoration-none fs-5' style={{ background: "#ffd333" }} type='submit'>Login</button>
             </form>
          </div>
       </div>
